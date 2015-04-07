@@ -15,6 +15,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <cglib.version>2.2.2</cglib.version>
+    <commons-pool.version>1.6</commons-pool.version>
     <jackson.version>2.5.2</jackson.version>
     <javax-servlet.version>3.1.0</javax-servlet.version>
     <jedis.version>2.6.2</jedis.version>
@@ -22,6 +23,7 @@
     <logback.version>1.1.2</logback.version>
     <slf4j.version>1.7.7</slf4j.version>
     <spring.version>4.1.6.RELEASE</spring.version>
+    <spring-ldap.version>2.0.2.RELEASE</spring-ldap.version>
   </properties>
 
   <dependencyManagement>
@@ -41,6 +43,12 @@
       <groupId>cglib</groupId>
       <artifactId>cglib-nodep</artifactId>
       <version>${cglib.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>${commons-pool.version}</version>
     </dependency>
 
     <dependency>
@@ -101,6 +109,12 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.ldap</groupId>
+      <artifactId>spring-ldap-core</artifactId>
+      <version>${spring-ldap.version}</version>
     </dependency>
   </dependencies>
   

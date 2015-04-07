@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
+import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.pool.factory.PoolingContextSource;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -41,6 +43,25 @@ public class ApplicationContextBeans {
   @Bean
   public RedisStore<Person> personRedisStore() {
     return new PersonRedisStore();
+  }
+
+  @Bean
+  public PoolingContextSource poolingContextSource() {
+    LdapContextSource ldapContextSource = new LdapContextSource();
+    ldapContextSource.setUrl("ldap://localhost:389");
+    ldapContextSource.setBase("");
+    ldapContextSource.setUserDn("cn=user,dc=some,dc=ldap,dc=crap");
+    ldapContextSource.setPassword("none");
+    ldapContextSource.setPooled(false);
+    ldapContextSource.afterPropertiesSet();
+
+    PoolingContextSource poolingContextSource = new PoolingContextSource();
+    poolingContextSource.setContextSource(ldapContextSource);
+    poolingContextSource.setMaxTotal(Runtime.getRuntime().availableProcessors());
+    poolingContextSource.setMaxActive(Runtime.getRuntime().availableProcessors());
+    poolingContextSource.setTestOnBorrow(true);
+
+    return poolingContextSource;
   }
 
   @Bean
